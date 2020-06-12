@@ -1,16 +1,6 @@
-import {
-  defineComponent,
-  h,
-  inject,
-  computed,
-  reactive,
-  watchEffect,
-  nextTick,
-  ref,
-  onMounted,
-} from "vue";
-import { ListBoxKey } from "./Listbox";
+import { defineComponent, h, inject, computed, ref, onMounted } from "vue";
 import { uuid } from "../utils/uuid";
+import { ListboxListKey } from "./ListboxList";
 
 export default defineComponent({
   name: "ListBoxOption",
@@ -25,7 +15,7 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     const element = ref<HTMLElement | undefined>();
-    const api = inject(ListBoxKey);
+    const api = inject(ListboxListKey);
 
     const id = uuid();
     // TODO handle props value change?

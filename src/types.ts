@@ -6,15 +6,21 @@ export interface ListboxAPI<State = any> {
   close: () => void;
   toggle: () => void;
 
-  addOption: (id: string, value: any) => void;
-  removeOption: (id: string, value: any) => void;
   selectedOption: State;
   select: (value: State) => void;
-  activeOption: State;
-  activeOptionIndex: number;
-  options: Option[];
-  activate: (value: State) => void;
+
   labelId: string;
+}
+
+export interface ListboxListAPI extends ListboxAPI {
+  options: Option[];
+  activeOption: string;
+  activeOptionIndex: number;
+
+  addOption: (id: string, value: any) => void;
+  removeOption: (id: string, value: any) => void;
+  activate: (value: string) => void;
+
   typeahead: string;
   type: (char: string) => string;
 }
