@@ -1,47 +1,61 @@
 <template>
-  <Listbox
-    v-model="selectedWrestler"
-    v-slot="{
-      /* isOpen */
-    }"
-  >
-    <ListboxLabel class="sr-only">
-      Select a wrestler:
-    </ListboxLabel>
-    <ListboxButton class="rounded p-3 border">
-      {{ selectedWrestler }}
-    </ListboxButton>
-    <!-- <ListboxList v-show="isOpen">
-      <ListboxOption
-        v-for="wrestler in wrestlers"
-        :key="wrestler"
-        :value="wrestler"
-        v-slot="{ isActive, isSelected }"
-      >
-        <div
-          class="p-3"
-          :class="
-            isActive ? 'bg-blue-600 text-white' : 'bg-white text-gray-900'
-          "
+  <div>
+    <select name="" id="">
+      <option>Foo</option>
+      <option>Bar</option>
+      <option>Baz</option>
+    </select>
+    <Listbox
+      v-model="selectedWrestler"
+      v-slot="{
+        isOpen
+      }"
+    >
+      <ListboxLabel class="sr-only">
+        Select a wrestler:
+      </ListboxLabel>
+      <ListboxButton class="rounded p-3 border">
+        {{ selectedWrestler }}
+      </ListboxButton>
+      <ListboxList v-if="isOpen">
+        <ListboxOption
+          v-for="wrestler in wrestlers"
+          :key="wrestler"
+          :value="wrestler"
+          v-slot="{ isActive, isSelected }"
         >
-          {{ wrestler }}
-          <img v-show="isSelected" src="/checkmark.svg" />
-        </div>
-      </ListboxOption>
-    </ListboxList> -->
-  </Listbox>
+          <li
+            class="p-3"
+            :class="
+              isActive ? 'bg-blue-600 text-white' : 'bg-white text-gray-900'
+            "
+            :style="{ 'text-decoration': isActive ? 'underline' : 'none' }"
+          >
+            {{ wrestler }}
+            <!-- <img v-show="isSelected" src="/checkmark.svg" /> -->
+          </li>
+        </ListboxOption>
+      </ListboxList>
+    </Listbox>
+  </div>
 </template>
 
 <script>
-import { Listbox, ListboxLabel, ListboxButton } from "./components";
+import {
+  Listbox,
+  ListboxLabel,
+  ListboxButton,
+  ListboxList,
+  ListboxOption
+} from "./components";
 
 export default {
   components: {
     Listbox,
     ListboxLabel,
-    ListboxButton
-    // ListboxList,
-    // ListboxOption,
+    ListboxButton,
+    ListboxList,
+    ListboxOption
   },
   data() {
     return {

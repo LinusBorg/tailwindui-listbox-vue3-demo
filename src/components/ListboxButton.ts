@@ -1,6 +1,31 @@
-import { defineComponent, h, inject, ref, watchEffect } from "vue";
+import {
+  defineComponent,
+  h,
+  inject,
+  ref,
+  watchEffect,
+  watch,
+  Ref,
+  readonly,
+} from "vue";
 import { ListBoxKey } from "./Listbox";
 import { uuid } from "../utils/uuid";
+
+function useTrackFocus(element: Ref<HTMLElement | undefined>) {
+  const isFocused = ref(false);
+  const handleFocus = () => (isFocused.value = true);
+  const handleBlur = () => (isFocused.value = false);
+  watch(element, (el, _, onCleanup) => {
+    el?.addEventListener("focus", handleFocus);
+    el?.addEventListener("blur", handleBlur);
+    onCleanup(() => {
+      el?.removeEventListener("focus", handleFocus);
+      el?.removeEventListener("blur", handleBlur);
+    });
+  });
+
+  return readonly(isFocused);
+}
 
 export const ListboxButton = defineComponent({
   name: "ListboxButton",
@@ -8,7 +33,8 @@ export const ListboxButton = defineComponent({
     const api = inject(ListBoxKey);
     const id = uuid();
     const button = ref<HTMLElement | undefined>();
-    const isFocused = ref<boolean>(false);
+    const isFocused = useTrackFocus(button);
+
     watchEffect(() => {
       if (!api.isOpen) {
         button.value?.focus();
@@ -23,10 +49,8 @@ export const ListboxButton = defineComponent({
           "aria-expanded": api.isOpen,
           "aria-labelledby": api.labelId,
           onClick: () => api.toggle(),
-          onFocus: () => (isFocused.value = true),
-          onBlur: () => (isFocused.value = false),
         },
-        slots.default({ isFocused })
+        slots.default({ isFocused: isFocused.value })
       );
   },
 });

@@ -1,5 +1,3 @@
-import { Ref, ComputedRef } from "vue";
-
 export interface ListboxAPI<State = any> {
   isOpen: boolean;
   open: () => void;
@@ -13,16 +11,10 @@ export interface ListboxAPI<State = any> {
 }
 
 export interface ListboxListAPI extends ListboxAPI {
-  options: Option[];
-  activeOption: string;
-  activeOptionIndex: number;
-
+  activeOption: Option;
   addOption: (id: string, value: any) => void;
   removeOption: (id: string, value: any) => void;
-  activate: (value: string) => void;
-
-  typeahead: string;
-  type: (char: string) => string;
+  activate: (value: Option | string) => void;
 }
 
 export interface Option<State = any> {

@@ -7,6 +7,7 @@ import {
   InjectionKey,
   provide,
 } from "vue";
+
 import { uuid } from "../utils/uuid";
 import { ListboxAPI } from "../types";
 
@@ -35,6 +36,7 @@ export const Listbox = defineComponent({
     const selectedOption = computed(() => props.modelValue);
     const select = (value: any) => {
       emit("update:modelValue", value);
+      close();
     };
 
     // Other Ids
@@ -52,6 +54,7 @@ export const Listbox = defineComponent({
       // Ids
       labelId,
     });
+
     provide(ListBoxKey, api);
     return () => h(props.tag, slots.default?.(api));
   },

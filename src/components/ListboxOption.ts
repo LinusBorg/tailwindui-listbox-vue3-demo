@@ -1,8 +1,16 @@
-import { defineComponent, h, inject, computed, ref, onMounted } from "vue";
+import {
+  cloneVNode,
+  defineComponent,
+  h,
+  inject,
+  computed,
+  ref,
+  onMounted,
+} from "vue";
 import { uuid } from "../utils/uuid";
 import { ListboxListKey } from "./ListboxList";
 
-export default defineComponent({
+export const ListboxOption = defineComponent({
   name: "ListBoxOption",
   props: {
     tag: {
@@ -14,7 +22,6 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const element = ref<HTMLElement | undefined>();
     const api = inject(ListboxListKey);
 
     const id = uuid();
@@ -26,21 +33,29 @@ export default defineComponent({
       api.select(props.value);
     };
 
+    const attributes = computed(() => ({
+      id,
+      role: "option",
+      "aria-selected": isSelected.value,
+      onClick: select,
+      onMousemove: () => api.activate(id),
+    }));
+
     return () =>
-      h(
-        props.tag,
-        {
-          ref: element,
-          id,
-          role: "option",
-          "aria-selected": isSelected.value,
-          onClick: select,
-          onMousemove: () => api.activate(id),
-        },
+      cloneVNode(
         slots.default({
-          isActive: api.activeOption === props.value,
+          isActive: api.activeOption?.value === props.value,
           isSelected: api.selectedOption === props.value,
-        })
+        })[0],
+        attributes.value
       );
+    // h(
+    //   props.tag,
+    //   attributes,
+    //   slots.default({
+    //     isActive: api.activeOption?.value === props.value,
+    //     isSelected: api.selectedOption === props.value,
+    //   })
+    // );
   },
 });
