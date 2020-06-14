@@ -1,10 +1,5 @@
 <template>
   <div>
-    <select name="" id="">
-      <option>Foo</option>
-      <option>Bar</option>
-      <option>Baz</option>
-    </select>
     <Listbox
       v-model="selectedWrestler"
       v-slot="{
@@ -74,3 +69,8 @@ export default {
   }
 };
 </script>
+<style lang="postcss">
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+</style>
