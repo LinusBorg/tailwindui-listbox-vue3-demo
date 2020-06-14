@@ -1,6 +1,12 @@
 {
   "name": "tw-ui-listbox-vite",
+  "author": {
+    "name": "Thorsten Luenborg",
+    "url": "http://www.github.com/LinusBorg"
+  },
   "version": "0.0.0",
+  "license": "MIT",
+  "private": "true",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
