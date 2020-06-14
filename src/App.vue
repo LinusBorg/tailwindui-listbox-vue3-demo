@@ -29,10 +29,9 @@
             :class="
               isActive ? 'bg-blue-600 text-white' : 'bg-white text-gray-900'
             "
-            :style="{ 'text-decoration': isActive ? 'underline' : 'none' }"
           >
             {{ wrestler }}
-            <!-- <img v-show="isSelected" src="/checkmark.svg" /> -->
+            <img v-if="isSelected" src="/checkmark.svg" />
           </li>
         </ListboxOption>
       </ListboxList>
