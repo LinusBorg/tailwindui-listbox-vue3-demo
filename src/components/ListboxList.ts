@@ -165,7 +165,6 @@ export const ListboxList = defineComponent({
           // because that's equivalent with "when the listby has been opened"
           onVnodeMounted: ({ el }) => el?.focus(),
           onKeydown,
-          onFocusout: () => listboxApi.close(),
         },
         slots.default()
       );
